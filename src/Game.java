@@ -39,7 +39,6 @@ public class Game extends GameGrid
     setTitle("[PacMan in the Multiverse]");
 
     //Setup for auto test
-    pacActor.setPropertyMoves(properties.getProperty("PacMan.move"));
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
     loadPillAndItemsLocations();
 

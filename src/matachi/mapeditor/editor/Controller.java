@@ -96,6 +96,8 @@ public class Controller implements ActionListener, GUIInformation {
 			loadFile();
 		} else if (e.getActionCommand().equals("update")) {
 			updateGrid(gridWith, gridHeight);
+		} else if (e.getActionCommand().equals("start_game")) {
+			//TODO: switch to pacman game
 		}
 	}
 
@@ -278,72 +280,76 @@ public class Controller implements ActionListener, GUIInformation {
 		return selectedTile;
 	}
 
-	public void loadFileFromName(String fileName) {
+	//polymorphic method if fileName is parsed into function
+	public void loadFile(String fileName) {
 		SAXBuilder builder = new SAXBuilder();
 		try {
 			File selectedFile = new File(fileName);
 			Document document;
 
-//			if (selectedFile.canRead() && selectedFile.exists()) {
-				document = builder.build(selectedFile);
+			document = builder.build(selectedFile);
 
-				Element rootNode = document.getRootElement();
+			Element rootNode = document.getRootElement();
 
-				List sizeList = rootNode.getChildren("size");
-				Element sizeElem = (Element) sizeList.get(0);
-				int height = Integer.parseInt(sizeElem
-						.getChildText("height"));
-				int width = Integer
-						.parseInt(sizeElem.getChildText("width"));
-				updateGrid(width, height);
+			List sizeList = rootNode.getChildren("size");
+			Element sizeElem = (Element) sizeList.get(0);
+			int height = Integer.parseInt(sizeElem
+					.getChildText("height"));
+			int width = Integer
+					.parseInt(sizeElem.getChildText("width"));
+			updateGrid(width, height);
 
-				List rows = rootNode.getChildren("row");
-				for (int y = 0; y < rows.size(); y++) {
-					Element cellsElem = (Element) rows.get(y);
-					List cells = cellsElem.getChildren("cell");
+			List rows = rootNode.getChildren("row");
+			for (int y = 0; y < rows.size(); y++) {
+				Element cellsElem = (Element) rows.get(y);
+				List cells = cellsElem.getChildren("cell");
 
-					for (int x = 0; x < cells.size(); x++) {
-						Element cell = (Element) cells.get(x);
-						String cellValue = cell.getText();
+				for (int x = 0; x < cells.size(); x++) {
+					Element cell = (Element) cells.get(x);
+					String cellValue = cell.getText();
 
-						char tileNr = 'a';
-						if (cellValue.equals("PathTile"))
-							tileNr = 'a';
-						else if (cellValue.equals("WallTile"))
-							tileNr = 'b';
-						else if (cellValue.equals("PillTile"))
-							tileNr = 'c';
-						else if (cellValue.equals("GoldTile"))
-							tileNr = 'd';
-						else if (cellValue.equals("IceTile"))
-							tileNr = 'e';
-						else if (cellValue.equals("PacTile"))
-							tileNr = 'f';
-						else if (cellValue.equals("TrollTile"))
-							tileNr = 'g';
-						else if (cellValue.equals("TX5Tile"))
-							tileNr = 'h';
-						else if (cellValue.equals("PortalWhiteTile"))
-							tileNr = 'i';
-						else if (cellValue.equals("PortalYellowTile"))
-							tileNr = 'j';
-						else if (cellValue.equals("PortalDarkGoldTile"))
-							tileNr = 'k';
-						else if (cellValue.equals("PortalDarkGrayTile"))
-							tileNr = 'l';
-						else
-							tileNr = '0';
+					char tileNr = 'a';
+					if (cellValue.equals("PathTile"))
+						tileNr = 'a';
+					else if (cellValue.equals("WallTile"))
+						tileNr = 'b';
+					else if (cellValue.equals("PillTile"))
+						tileNr = 'c';
+					else if (cellValue.equals("GoldTile"))
+						tileNr = 'd';
+					else if (cellValue.equals("IceTile"))
+						tileNr = 'e';
+					else if (cellValue.equals("PacTile"))
+						tileNr = 'f';
+					else if (cellValue.equals("TrollTile"))
+						tileNr = 'g';
+					else if (cellValue.equals("TX5Tile"))
+						tileNr = 'h';
+					else if (cellValue.equals("PortalWhiteTile"))
+						tileNr = 'i';
+					else if (cellValue.equals("PortalYellowTile"))
+						tileNr = 'j';
+					else if (cellValue.equals("PortalDarkGoldTile"))
+						tileNr = 'k';
+					else if (cellValue.equals("PortalDarkGrayTile"))
+						tileNr = 'l';
+					else
+						tileNr = '0';
 
-						model.setTile(x, y, tileNr);
-					}
+					model.setTile(x, y, tileNr);
 				}
+			}
 
-				String mapString = model.getMapAsString();
-				grid.redrawGrid();
-//			}
+			Game.mazeString = model.getMapAsString();
+			grid.redrawGrid();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String loadFileFromFolder(String fileName) {
+
+		return "";
 	}
 }

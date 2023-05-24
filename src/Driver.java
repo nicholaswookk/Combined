@@ -18,16 +18,16 @@ public class Driver {
 
     public static void main(String args[]) {
 
-        //no arguments, open up editor with empty map (done)
+//        //no arguments, open up editor with empty map (done)
 //        if (args.length == 0) {
 //            new Controller();
 //        }
 
 
-        //if argument is a map file, load up map into editor (done)
+//        if argument is a map file, load up map into editor (done)
 //        else if (args[0].endsWith(".xml")) {
-//        Controller mapEditor = new Controller();
-//        mapEditor.loadFileFromName(ARGUMENT);
+        Controller mapEditor = new Controller();
+        mapEditor.loadFile(ARGUMENT);
 
         //if argument is a folder, play test all maps in the folder in ascending order
 //        else {
@@ -36,7 +36,7 @@ public class Driver {
 //        }
 
 
-        //may use for testing portion
+//        may use for testing portion
         String propertiesPath = DEFAULT_PROPERTIES_PATH;
         if (args.length > 0) {
             propertiesPath = args[0];
