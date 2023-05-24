@@ -53,16 +53,20 @@ public class PacManGameGrid
       return 3;
     if (c == 'e') // Ice
       return 4;
-    if (c == 'f') // Troll
+    if (c == 'f') // Pacman
       return 5;
-    if (c == 'g') // TX5
+    if (c == 'g') // Troll
       return 6;
-    if (c == 'h') //
+    if (c == 'h') // TX5
       return 7;
-    if (c == 'i')
+    if (c == 'i') // PortalWhite
       return 8;
-    if (c == 'j')
+    if (c == 'j') // PortalYellow
       return 9;
+    if (c == 'k') // PortalDarkGold
+      return 10;
+    if (c == 'l') // PortalDarkGray
+      return 11;
     return 0;
   }
 }

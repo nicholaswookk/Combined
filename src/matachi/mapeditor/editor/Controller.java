@@ -34,11 +34,11 @@ import org.jdom.output.XMLOutputter;
 
 /**
  * Controller of the application.
- * 
+ *
  * @author Daniel "MaTachi" Jonsson
  * @version 1
  * @since v0.0.5
- * 
+ *
  */
 public class Controller implements ActionListener, GUIInformation {
 
@@ -73,7 +73,7 @@ public class Controller implements ActionListener, GUIInformation {
 				Constants.GRID_HEIGHT);
 
 		grid = new GridView(this, camera, tiles); // Every tile is
-													// 30x30 pixels
+		// 30x30 pixels
 
 		this.view = new View(this, camera, grid, tiles);
 	}
