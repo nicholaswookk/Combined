@@ -23,6 +23,8 @@ import src.matachi.mapeditor.grid.GridCamera;
 import src.matachi.mapeditor.grid.GridModel;
 import src.matachi.mapeditor.grid.GridView;
 
+import src.Game;
+
 import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -263,7 +265,7 @@ public class Controller implements ActionListener, GUIInformation {
 						}
 					}
 
-					String mapString = model.getMapAsString();
+					Game.mazeString = model.getMapAsString();
 					grid.redrawGrid();
 				}
 			}

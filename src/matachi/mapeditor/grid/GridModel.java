@@ -146,7 +146,6 @@ public class GridModel implements Grid {
 			for (int x = 0; x < map[0].length; x++) {
 				s += map[y][x];
 			}
-			s += "\n";
 		}
 		return s;
 	}

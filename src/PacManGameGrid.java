@@ -9,24 +9,12 @@ public class PacManGameGrid
   private int nbVertCells;
   private int[][] mazeArray;
 
-  public PacManGameGrid(int nbHorzCells, int nbVertCells)
+  public PacManGameGrid(int nbHorzCells, int nbVertCells, String mazeString)
   {
     this.nbHorzCells = nbHorzCells;
     this.nbVertCells = nbVertCells;
     mazeArray = new int[nbVertCells][nbHorzCells];
-    String maze =
-      "xxxxxxxxxxxxxxxxxxxx" + // 0
-      "x....x....g...x....x" + // 1
-      "xgxx.x.xxxxxx.x.xx.x" + // 2
-      "x.x.......i.g....x.x" + // 3
-      "x.x.xx.xx  xx.xx.x.x" + // 4
-      "x......x    x......x" + // 5
-      "x.x.xx.xxxxxx.xx.x.x" + // 6
-      "x.x......gi......x.x" + // 7
-      "xixx.x.xxxxxx.x.xx.x" + // 8
-      "x...gx....g...x....x" + // 9
-      "xxxxxxxxxxxxxxxxxxxx";// 10
-
+    String maze = mazeString;
 
     // Copy structure into integer array
     for (int i = 0; i < nbVertCells; i++)
@@ -37,6 +25,17 @@ public class PacManGameGrid
       }
     }
   }
+//      "xxxxxxxxxxxxxxxxxxxx" + // 0
+//      "x....x....g...x....x" + // 1
+//      "xgxx.x.xxxxxx.x.xx.x" + // 2
+//      "x.x.......i.g....x.x" + // 3
+//      "x.x.xx.xx  xx.xx.x.x" + // 4
+//      "x......x    x......x" + // 5
+//      "x.x.xx.xxxxxx.xx.x.x" + // 6
+//      "x.x......gi......x.x" + // 7
+//      "xixx.x.xxxxxx.x.xx.x" + // 8
+//      "x...gx....g...x....x" + // 9
+//      "xxxxxxxxxxxxxxxxxxxx";// 10
 
   public int getCell(Location location)
   {
@@ -44,16 +43,26 @@ public class PacManGameGrid
   }
   private int toInt(char c)
   {
-    if (c == 'x')
+    if (c == 'b') // Wall
       return 0;
-    if (c == '.')
+    if (c == 'c') // Pill
       return 1;
-    if (c == ' ')
+    if (c == 'a') // Path
       return 2;
-    if (c == 'g')
+    if (c == 'd') // Gold
       return 3;
-    if (c == 'i')
+    if (c == 'e') // Ice
       return 4;
-    return -1;
+    if (c == 'f') // Troll
+      return 5;
+    if (c == 'g') // TX5
+      return 6;
+    if (c == 'h') //
+      return 7;
+    if (c == 'i')
+      return 8;
+    if (c == 'j')
+      return 9;
+    return 0;
   }
 }
