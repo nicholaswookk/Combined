@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -23,9 +22,6 @@ import src.matachi.mapeditor.grid.GridCamera;
 import src.matachi.mapeditor.grid.GridModel;
 import src.matachi.mapeditor.grid.GridView;
 
-import src.Game;
-
-import org.jdom.Attribute;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -57,17 +53,23 @@ public class Controller implements ActionListener, GUIInformation {
 
 	private int gridWith = Constants.MAP_WIDTH;
 	private int gridHeight = Constants.MAP_HEIGHT;
+	private boolean playTest;
+
 
 	/**
 	 * Construct the controller.
 	 */
-	public Controller() {
+	public Controller(boolean playTest) {
+		this.playTest = playTest;
 		init(Constants.MAP_WIDTH, Constants.MAP_HEIGHT);
 
+		if (playTest) {
+			view.close();
+		}
 	}
 
 	public void init(int width, int height) {
-		this.tiles = TileManager.getTilesFromFolder("sprites/");
+		this.tiles = TileManager.getTilesFromFolder("sprites/data");
 		this.model = new GridModel(width, height, tiles.get(0).getCharacter());
 		this.camera = new GridCamera(model, Constants.GRID_WIDTH,
 				Constants.GRID_HEIGHT);
@@ -264,8 +266,7 @@ public class Controller implements ActionListener, GUIInformation {
 							model.setTile(x, y, tileNr);
 						}
 					}
-
-					Game.mazeString = model.getMapAsString();
+					String mapString = model.getMapAsString();
 					grid.redrawGrid();
 				}
 			}
@@ -341,13 +342,18 @@ public class Controller implements ActionListener, GUIInformation {
 					model.setTile(x, y, tileNr);
 				}
 			}
-
-			Game.mazeString = model.getMapAsString();
-			grid.redrawGrid();
-
+				grid.redrawGrid();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Grid getModel() {
+		return model;
+	}
+
+	public boolean getPlayTest() {
+		return playTest;
 	}
 
 	public String loadFileFromFolder(String fileName) {

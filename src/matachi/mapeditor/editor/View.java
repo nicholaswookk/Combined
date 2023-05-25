@@ -37,7 +37,7 @@ public class View {
 	 */
 	// private JButton showGridButton;
 
-	// private boolean showingGrid;
+	//	private boolean showingGrid;
 
 	private JTextField txtWidth;
 	private JTextField txtHeight;
@@ -54,7 +54,7 @@ public class View {
 	public View(Controller controller, Camera camera, JPanel grid,
 			List<? extends Tile> tiles) {
 
-		// showingGrid = true;
+		//showingGrid = true;
 
 		grid.setPreferredSize(new Dimension(Constants.GRID_WIDTH
 				* Constants.TILE_WIDTH, Constants.GRID_HEIGHT
@@ -142,7 +142,7 @@ public class View {
 		frame.setTitle("Map Editor");
 		frame.add(layout);
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(!controller.getPlayTest());
 	}
 
 	public int getWidth() {

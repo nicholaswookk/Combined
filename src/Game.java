@@ -13,10 +13,10 @@ public class Game extends GameGrid
 {
   private final static int nbHorzCells = 20;
   private final static int nbVertCells = 11;
-  public static String mazeString;
+  private String mazeString;
 
-  protected PacManGameGrid grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
-
+//  protected PacManGameGrid grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
+  protected PacManGameGrid grid;
   protected PacActor pacActor = new PacActor(this);
   private Monster troll = new Monster(this, MonsterType.Troll);
   private Monster tx5 = new Monster(this, MonsterType.TX5);
@@ -31,16 +31,18 @@ public class Game extends GameGrid
   private ArrayList<Location> pillLocations = new ArrayList<>();
   private ArrayList<Location> goldLocations = new ArrayList<>();
 
-  public Game(GameCallback gameCallback, Properties properties)
+  public Game(GameCallback gameCallback, Properties properties, String mazeString)
   {
     //Setup game
     super(nbHorzCells, nbVertCells, 20, false);
+    this.mazeString = mazeString;
+    this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
     this.gameCallback = gameCallback;
     this.properties = properties;
     setSimulationPeriod(100);
     setTitle("[PacMan in the Multiverse]");
 
-    //Setup for auto test
+    //Setup for auto 2map.xml
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
     loadPillAndItemsLocations();
 
