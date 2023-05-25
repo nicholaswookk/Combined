@@ -7,6 +7,8 @@ import src.utility.GameCallback;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 
 public class Game extends GameGrid
@@ -30,6 +32,12 @@ public class Game extends GameGrid
   private int seed = 30006;
   private ArrayList<Location> pillLocations = new ArrayList<>();
   private ArrayList<Location> goldLocations = new ArrayList<>();
+
+  private ArrayList<Portal> portals = new ArrayList<>();
+
+  private ArrayList<String> portalImages = new ArrayList<>(Arrays.asList("sprites/l_portalDarkGrayTile.png", "sprites/k_portalDarkGoldTile.png", "sprites/j_portalYellowTile.png", "sprites/i_portalWhiteTile.png"));
+
+
 
   public Game(GameCallback gameCallback, Properties properties, String mazeString)
   {
@@ -235,6 +243,73 @@ public class Game extends GameGrid
     for (Location location : goldLocations) {
       putGold(bg, location);
     }
+
+    for (Portal portal : portals) {
+      putPortal(bg, portal);
+    }
+  }
+
+  private ArrayList<Location> findAvailableCells() {
+
+    ArrayList<Location> available = new ArrayList<>();
+
+    for (int i = 0; i < nbVertCells; i++) {
+
+      for (int j = 0; j < nbHorzCells; j++) {
+        Location currentLoc = new Location(j, i);
+        int a = grid.getCell(currentLoc);
+
+        if (a == 1) {
+
+          available.add(currentLoc);
+        }
+      }
+    }
+
+    Collections.shuffle(available);
+
+    return available;
+  }
+
+  /**
+   * Generates portals to be placed in game
+   * @return (Updates the locations of portals in game)
+   */
+  private ArrayList<Portal> generatePortals () {
+
+    ArrayList<Location> availableCells = findAvailableCells();
+
+    for (int i = 0; i < 8; i += 2) {
+
+      Location portalDoor1 = availableCells.get(i);
+      Location portalDoor2 = availableCells.get(i + 1);
+      String imageFile = portalImages.get(i / 2);
+
+      Portal portal = new Portal (imageFile, portalDoor1, portalDoor2);
+      portals.add(portal);
+
+    }
+    return portals;
+  }
+
+  public void teleport(Actor actor) {
+
+    for (Portal portal : portals) {
+
+      if (actor.getLocation().equals(portal.getLocation1())) {
+
+        delay(10);
+        actor.setLocation(portal.getLocation2());
+
+      } else if (actor.getLocation().equals(portal.getLocation2())) {
+
+        delay(10);
+        actor.setLocation(portal.getLocation1());
+
+      }
+
+    }
+
   }
 
   private void putPill(GGBackground bg, Location location){
@@ -255,6 +330,19 @@ public class Game extends GameGrid
     Actor ice = new Actor("sprites/ice.png");
     this.iceCubes.add(ice);
     addActor(ice, location);
+  }
+
+  private void putPortal(GGBackground bg, Portal portal) {
+
+    bg.setPaintColor(Color.darkGray);
+
+    bg.fillCircle(toPoint(portal.getLocation1()), 5);
+    Actor door1 = new Actor (portal.getImage());
+    addActor(door1, portal.getLocation1());
+
+    bg.fillCircle(toPoint(portal.getLocation2()), 5);
+    Actor door2 = new Actor (portal.getImage());
+    addActor(door2, portal.getLocation2());
   }
 
   public void removeItem(String type,Location location){
