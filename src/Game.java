@@ -16,9 +16,9 @@ public class Game extends GameGrid
 {
   private final static int nbHorzCells = 20;
   private final static int nbVertCells = 11;
-  private String mazeString;
+  private ArrayList<String> loadedMazeStrings;
+  private boolean gameContinues = true;
 
-//  protected PacManGameGrid grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
   protected PacManGameGrid grid;
   protected PacActor pacActor = new PacActor(this);
   private Monster troll = new Monster(this, MonsterType.Troll);
@@ -37,74 +37,82 @@ public class Game extends GameGrid
 
 
 
-  public Game(GameCallback gameCallback, Properties properties, String mazeString)
+  public Game(GameCallback gameCallback, Properties properties, ArrayList<String> loadedMazeStrings)
   {
     //Setup game
     super(nbHorzCells, nbVertCells, 20, false);
-    this.mazeString = mazeString;
-    this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
+    this.loadedMazeStrings = loadedMazeStrings;
     this.gameCallback = gameCallback;
     this.properties = properties;
     setSimulationPeriod(100);
     setTitle("[PacMan in the Multiverse]");
-
-    //Setup for auto 2map.xml
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
-    loadPillAndItemsLocations();
-
-    GGBackground bg = getBg();
-    drawGrid(bg);
-
-    //Setup Random seeds
-    seed = Integer.parseInt(properties.getProperty("seed"));
-    pacActor.setSeed(seed);
-    troll.setSeed(seed);
-    tx5.setSeed(seed);
-    addKeyRepeatListener(pacActor);
-    setKeyRepeatPeriod(150);
-    troll.setSlowDown(3);
-    tx5.setSlowDown(3);
-    pacActor.setSlowDown(3);
-    tx5.stopMoving(5);
-    setupActorLocations();
-
-
-
-    //Run the game
-    doRun();
-    show();
-    // Loop to look for collision in the application thread
-    // This makes it improbable that we miss a hit
-    boolean hasPacmanBeenHit;
-    boolean hasPacmanEatAllPills;
-    setupPillAndItemsLocations();
-    int maxPillsAndItems = countPillsAndItems();
-
-    do {
-      hasPacmanBeenHit = troll.getLocation().equals(pacActor.getLocation()) ||
-              tx5.getLocation().equals(pacActor.getLocation());
-      hasPacmanEatAllPills = pacActor.getNbPills() >= maxPillsAndItems;
-      delay(10);
-    } while(!hasPacmanBeenHit && !hasPacmanEatAllPills);
-    delay(120);
-
-    Location loc = pacActor.getLocation();
-    troll.setStopMoving(true);
-    tx5.setStopMoving(true);
-    pacActor.removeSelf();
-
     String title = "";
-    if (hasPacmanBeenHit) {
-      bg.setPaintColor(Color.red);
-      title = "GAME OVER";
-      addActor(new Actor("sprites/explosion3.gif"), loc);
-    } else if (hasPacmanEatAllPills) {
-      bg.setPaintColor(Color.yellow);
-      title = "YOU WIN";
+
+    //check if there are any more maps that have been loaded into game
+    while (loadedMazeStrings.size() != 0) {
+      System.out.println(loadedMazeStrings);
+      String mazeString = loadedMazeStrings.get(0);
+      this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
+      loadPillAndItemsLocations();
+
+      GGBackground bg = getBg();
+      drawGrid(bg);
+
+      //Setup Random seeds
+      seed = Integer.parseInt(properties.getProperty("seed"));
+      pacActor.setSeed(seed);
+      troll.setSeed(seed);
+      tx5.setSeed(seed);
+      addKeyRepeatListener(pacActor);
+      setKeyRepeatPeriod(150);
+      troll.setSlowDown(3);
+      tx5.setSlowDown(3);
+      pacActor.setSlowDown(3);
+      tx5.stopMoving(5);
+      setupActorLocations();
+
+
+      //Run the game
+      doRun();
+      show();
+      // Loop to look for collision in the application thread
+      // This makes it improbable that we miss a hit
+      boolean hasPacmanBeenHit;
+      boolean hasPacmanEatAllPills;
+      setupPillAndItemsLocations();
+      int maxPillsAndItems = countPillsAndItems();
+
+      do {
+        hasPacmanBeenHit = troll.getLocation().equals(pacActor.getLocation()) ||
+                tx5.getLocation().equals(pacActor.getLocation());
+        hasPacmanEatAllPills = pacActor.getNbPills() >= maxPillsAndItems;
+        delay(10);
+      } while (!hasPacmanBeenHit && !hasPacmanEatAllPills);
+      delay(120);
+
+      Location loc = pacActor.getLocation();
+      troll.setStopMoving(true);
+      tx5.setStopMoving(true);
+      pacActor.removeSelf();
+
+      if (hasPacmanBeenHit) {
+        bg.setPaintColor(Color.red);
+        title = "GAME OVER";
+        addActor(new Actor("sprites/explosion3.gif"), loc);
+        break;
+      } else if (hasPacmanEatAllPills) {
+        loadedMazeStrings.remove(0);
+
+        if (loadedMazeStrings.size() == 0) {
+          bg.setPaintColor(Color.yellow);
+          title = "YOU WIN";
+          break;
+        }
+      }
     }
     setTitle(title);
     gameCallback.endOfGame(title);
-
     doPause();
   }
 

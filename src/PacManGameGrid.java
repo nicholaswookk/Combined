@@ -69,4 +69,5 @@ public class PacManGameGrid
       return 11;
     return 0;
   }
+
 }

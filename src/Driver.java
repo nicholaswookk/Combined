@@ -2,27 +2,20 @@ package src;
 
 import src.utility.GameCallback;
 import src.utility.PropertiesLoader;
-
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Properties;
 import src.matachi.mapeditor.editor.Controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.io.*;
 
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-
-
 public class Driver {
-    public static final String TEST1 = "properties/2map.xml";
-    public static final String TESTTELEPORT = "properties/3TeleportTestMap.xml";
-    public static final String DEFAULT_PROPERTIES_PATH = "properties/test2.properties";
+    public static final String TEST1 = "properties/GameFolder/2map.xml";
+    public static final String TESTTELEPORT = "properties/GameFolder/3TeleportTestMap.xml";
+    public static final String DEFAULT_PROPERTIES_PATH = "properties/test1.properties";
+    public static final String GameFolderPath = "properties/GameFolder";
 
     /**
      * Starting point
@@ -42,24 +35,22 @@ public class Driver {
 //            Controller mapEditor = new Controller(false);
 //            mapEditor.loadFile(ARGUMENT);
 //
-            //if argument is a folder, play 1map.xml all maps in the folder in ascending order
+            //testing code for a single game map
 //        else {
-        Controller mapEditor = new Controller(true);
-        mapEditor.loadFile(TESTTELEPORT);
-
-        String propertiesPath = DEFAULT_PROPERTIES_PATH;
-        if (args.length > 0) {
-            propertiesPath = args[0];
-        }
-        final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
-        GameCallback gameCallback = new GameCallback();
-        new Game(gameCallback, properties, mapEditor.getModel().getMapAsString());
+//        Controller mapEditor = new Controller(true);
+//        mapEditor.loadFile(TESTTELEPORT);
+//
+//        String propertiesPath = DEFAULT_PROPERTIES_PATH;
+//        if (args.length > 0) {
+//            propertiesPath = args[0];
+//        }
+//        final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
+//        GameCallback gameCallback = new GameCallback();
+//        new Game(gameCallback, properties, mapEditor.getModel().getMapAsString());
 
 //        }
-    }
-
-    public void loadFiles(){
-        File folderPath = new File("saveFiles");
+        //if folder loaded in, instantiate an arraylist of all the xml map files and instantiate game maps accordingly
+        File folderPath = new File(GameFolderPath);
         File[] fileList = folderPath.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
@@ -68,7 +59,7 @@ public class Driver {
             }
         });
 
-        //sort file list based on the number at the start of the file name
+        //sort fileList based on number at start of file name
         Arrays.sort(fileList,
                 (s1, s2) ->
                         Integer.compare(
@@ -76,11 +67,25 @@ public class Driver {
                                 Integer.parseInt(s2.getName().split("\\D")[0])
                         )
         );
+        //convert fileList array to arraylist
+        List<File> fileArrayList = new ArrayList<>(Arrays.asList(fileList));
+        ArrayList<String> gameFolderMapStrings = new ArrayList<String>();
 
-        for (File file : fileList) {
-            System.out.println("File name: " + file.getName());
-            System.out.println("File path: " + file.getPath());
+        Controller mapEditor = new Controller(true);
+
+        while (fileArrayList.size() != 0) {
+            mapEditor.loadFile(fileList[0].getPath());
+            gameFolderMapStrings.add(mapEditor.getModel().getMapAsString());
+            fileArrayList.remove(0);
         }
+
+        String propertiesPath = DEFAULT_PROPERTIES_PATH;
+        final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
+        GameCallback gameCallback = new GameCallback();
+
+        new Game(gameCallback, properties, gameFolderMapStrings);
+
+
     }
 
 }
