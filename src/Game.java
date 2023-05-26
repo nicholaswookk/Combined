@@ -27,7 +27,7 @@ public class Game extends GameGrid
   private ArrayList<Location> pillAndItemLocations = new ArrayList<Location>();
   private ArrayList<Actor> iceCubes = new ArrayList<Actor>();
   private ArrayList<Actor> goldPieces = new ArrayList<Actor>();
-  private ArrayList<Portal> portals = new ArrayList<>();
+  private ArrayList<Actor> portals = new ArrayList<Actor>();
   private GameCallback gameCallback;
   private Properties properties;
   private int seed = 30006;
@@ -210,25 +210,25 @@ public class Game extends GameGrid
   }
 /*
 function reads game map to initialise portals and add them to an Arraylist containing portals
- */
-  private void setupPortalLocations() {
-    for (int y = 0; y < nbVertCells; y++)
-    {
-      for (int x = 0; x < nbHorzCells; x++) {
-
-        Location location = new Location(x, y);
-        int a = grid.getCell(location);
-        if (a == 5) { // Pacman
-          addActor(pacActor, location);
-        } else if (a == 6) { // Troll
-          addActor(troll, location, Location.NORTH);
-        }
-        else if (a == 7) { // TX5
-          addActor(tx5, location, Location.NORTH);
-        }
-      }
-    }
-  }
+// */
+//  private void setupPortalLocations() {
+//    for (int y = 0; y < nbVertCells; y++)
+//    {
+//      for (int x = 0; x < nbHorzCells; x++) {
+//
+//        Location location = new Location(x, y);
+//        int a = grid.getCell(location);
+//        if (a == 5) { // Pacman
+//          addActor(pacActor, location);
+//        } else if (a == 6) { // Troll
+//          addActor(troll, location, Location.NORTH);
+//        }
+//        else if (a == 7) { // TX5
+//          addActor(tx5, location, Location.NORTH);
+//        }
+//      }
+//    }
+//  }
 
   private void drawGrid(GGBackground bg)
   {
@@ -264,27 +264,6 @@ function reads game map to initialise portals and add them to an Arraylist conta
     }
   }
 
-  private ArrayList<Location> findAvailableCells() {
-
-    ArrayList<Location> available = new ArrayList<>();
-
-    for (int i = 0; i < nbVertCells; i++) {
-
-      for (int j = 0; j < nbHorzCells; j++) {
-        Location currentLoc = new Location(j, i);
-        int a = grid.getCell(currentLoc);
-
-        if (a == 1) {
-
-          available.add(currentLoc);
-        }
-      }
-    }
-
-    Collections.shuffle(available);
-
-    return available;
-  }
   // for when pacActor touches a portal
 //  public void teleport(Actor actor) {
 //
@@ -328,26 +307,18 @@ function reads game map to initialise portals and add them to an Arraylist conta
   private void putPortal(GGBackground bg, Location location, int a) {
 
     if (a == 8) {
-      bg.setPaintColor(Color.white);
-      bg.fillCircle(toPoint(location), 2);
       Actor portal = new Actor("sprites/portalWhiteTile.png");
       addActor(portal, location);
     }
     if (a == 9) {
-      bg.setPaintColor(Color.yellow);
-      bg.fillCircle(toPoint(location), 5);
       Actor portal = new Actor("sprites/portalYellowTile.png");
       addActor(portal, location);
     }
     if (a == 10) {
-      bg.setPaintColor(Color.lightGray);
-      bg.fillCircle(toPoint(location), 5);
       Actor portal = new Actor("sprites/portalDarkGoldTile.png");
       addActor(portal, location);
     }
     if (a == 11) {
-      bg.setPaintColor(Color.darkGray);
-      bg.fillCircle(toPoint(location), 5);
       Actor portal = new Actor("sprites/portalDarkGrayTile.png");
       addActor(portal, location);
     }
