@@ -5,6 +5,7 @@ package src;
 import ch.aplu.jgamegrid.*;
 import src.utility.GameCallback;
 
+import javax.sound.sampled.Port;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,12 +28,13 @@ public class Game extends GameGrid
   private ArrayList<Location> pillAndItemLocations = new ArrayList<Location>();
   private ArrayList<Actor> iceCubes = new ArrayList<Actor>();
   private ArrayList<Actor> goldPieces = new ArrayList<Actor>();
-  private ArrayList<Actor> portals = new ArrayList<Actor>();
+  private ArrayList<Portal> portals = new ArrayList<Portal>();
   private GameCallback gameCallback;
   private Properties properties;
   private int seed = 30006;
   private ArrayList<Location> pillLocations = new ArrayList<>();
   private ArrayList<Location> goldLocations = new ArrayList<>();
+
 
 
   public Game(GameCallback gameCallback, Properties properties, String mazeString)
@@ -251,6 +253,7 @@ function reads game map to initialise portals and add them to an Arraylist conta
           putIce(bg, location);
         } else if (a > 7) {
           putPortal(bg, location, a);
+
         }
       }
     }
@@ -264,24 +267,7 @@ function reads game map to initialise portals and add them to an Arraylist conta
     }
   }
 
-  // for when pacActor touches a portal
-//  public void teleport(Actor actor) {
-//
-//    for (Portal portal : portals) {
-//
-//      if (actor.getLocation().equals(portal.getLocation1())) {
-//
-//        delay(10);
-//        actor.setLocation(portal.getLocation2());
-//
-//      } else if (actor.getLocation().equals(portal.getLocation2())) {
-//
-//        delay(10);
-//        actor.setLocation(portal.getLocation1());
-//
-//      }
-//    }
-//  }
+
 
   private void putPill(GGBackground bg, Location location){
     bg.fillCircle(toPoint(location), 5);
@@ -305,21 +291,24 @@ function reads game map to initialise portals and add them to an Arraylist conta
 
   //create portal with colours based on toInt
   private void putPortal(GGBackground bg, Location location, int a) {
-
     if (a == 8) {
-      Actor portal = new Actor("sprites/portalWhiteTile.png");
+      Portal portal = new Portal(this, "sprites/portalWhiteTile.png", "WHITE");
+      portals.add(portal);
       addActor(portal, location);
     }
     if (a == 9) {
-      Actor portal = new Actor("sprites/portalYellowTile.png");
+      Portal portal = new Portal(this, "sprites/portalYellowTile.png", "YELLOW");
+      portals.add(portal);
       addActor(portal, location);
     }
     if (a == 10) {
-      Actor portal = new Actor("sprites/portalDarkGoldTile.png");
+      Portal portal = new Portal(this, "sprites/portalDarkGoldTile.png", "DARK GOLD");
+      portals.add(portal);
       addActor(portal, location);
     }
     if (a == 11) {
-      Actor portal = new Actor("sprites/portalDarkGrayTile.png");
+      Portal portal = new Portal(this, "sprites/portalDarkGrayTile.png", "DARK GRAY");
+      portals.add(portal);
       addActor(portal, location);
     }
   }
@@ -338,6 +327,13 @@ function reads game map to initialise portals and add them to an Arraylist conta
         }
       }
     }
+  }
+
+  public ArrayList<Portal> getPortals() {
+    return portals;
+  }
+  public String getPortalColour(Portal portal) {
+    return portal.getColour();
   }
 
   public int getNumHorzCells(){

@@ -20,7 +20,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Driver {
-    public static final String ARGUMENT = "properties/1map.xml";
+    public static final String TEST1 = "properties/2map.xml";
+    public static final String TESTTELEPORT = "properties/3TeleportTestMap.xml";
     public static final String DEFAULT_PROPERTIES_PATH = "properties/test1.properties";
 
     /**
@@ -31,7 +32,7 @@ public class Driver {
 
     public static void main(String args[]) {
 
-        //no arguments, open up editor with empty map (done)
+//        no arguments, open up editor with empty map (done)
 //        if (args.length == 0) {
 //            new Controller(false);
 //        }
@@ -45,7 +46,7 @@ public class Driver {
             //if argument is a folder, play 1map.xml all maps in the folder in ascending order
 //        else {
         Controller mapEditor = new Controller(true);
-        mapEditor.loadFile(ARGUMENT);
+        mapEditor.loadFile(TEST1);
 
         String propertiesPath = DEFAULT_PROPERTIES_PATH;
         if (args.length > 0) {

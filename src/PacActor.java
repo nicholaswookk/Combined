@@ -22,6 +22,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
   private int propertyMoveIndex = 0;
   private final int listLength = 10;
   private int seed;
+
   private Random randomiser = new Random();
   public PacActor(Game game)
   {
@@ -228,5 +229,26 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     gameGrid.setTitle(title);
   }
 
+  private void teleport(Location location) {
+    ArrayList<Portal> portals = game.getPortals();
+    String portalColour = "";
+    Location teleportLocation = null;
 
+    for (Portal portal : portals) {
+      if (portal.getLocation() == location) {
+        portalColour = portal.getColour();
+        portals.remove(portal);
+        break;
+      }
+    }
+    for (Portal portal : portals) {
+      if (portal.getColour() == portalColour) {
+        teleportLocation = portal.getLocation();
+        delay(10);
+        setLocation(teleportLocation);
+      }
+
+    }
+  }
 }
+
