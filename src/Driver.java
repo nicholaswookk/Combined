@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Driver {
     public static final String TEST1 = "properties/2map.xml";
     public static final String TESTTELEPORT = "properties/3TeleportTestMap.xml";
-    public static final String DEFAULT_PROPERTIES_PATH = "properties/test1.properties";
+    public static final String DEFAULT_PROPERTIES_PATH = "properties/test2.properties";
 
     /**
      * Starting point
@@ -37,7 +37,6 @@ public class Driver {
 //            new Controller(false);
 //        }
 //
-
 //        if argument is a map file, load up map into editor (done)
 //        else if (args[0].endsWith(".xml")) {
 //            Controller mapEditor = new Controller(false);

@@ -75,14 +75,8 @@ public class PacActor extends Actor implements GGKeyRepeatListener
         break;
     }
 
-    if (teleportLocation(next) == null && next != null && canMove(next))
-    {
-      setLocation(next);
+      setActorLocation(next);
       eatPill(next);
-    }
-    if (teleportLocation(next) != null) {
-      setLocation(teleportLocation(next));
-    }
   }
 
   public void act()
@@ -125,7 +119,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       case "M":
         Location next = getNextMoveLocation();
         if (canMove(next)) {
-          setLocation(next);
+          setActorLocation(next);
           eatPill(next);
         }
         break;
@@ -146,7 +140,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     Location next = getLocation().getNeighbourLocation(compassDir);
     setDirection(compassDir);
     if (!isVisited(next) && canMove(next)) {
-      setLocation(next);
+      setActorLocation(next);
     } else {
       // normal movement
       int sign = randomiser.nextDouble() < 0.5 ? 1 : -1;
@@ -154,24 +148,24 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       turn(sign * 90);  // Try to turn left/right
       next = getNextMoveLocation();
       if (canMove(next)) {
-        setLocation(next);
+        setActorLocation(next);
       } else {
         setDirection(oldDirection);
         next = getNextMoveLocation();
         if (canMove(next)) // Try to move forward
         {
-          setLocation(next);
+          setActorLocation(next);
         } else {
           setDirection(oldDirection);
           turn(-sign * 90);  // Try to turn right/left
           next = getNextMoveLocation();
           if (canMove(next)) {
-            setLocation(next);
+            setActorLocation(next);
           } else {
             setDirection(oldDirection);
             turn(180);  // Turn backward
             next = getNextMoveLocation();
-            setLocation(next);
+            setActorLocation(next);
           }
         }
       }
@@ -233,25 +227,30 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     gameGrid.setTitle(title);
   }
 
-  private Location teleportLocation(Location location) {
+  private void setActorLocation(Location next) {
     ArrayList<Portal> portals = game.getPortals();
     String portalColour = "";
     Location teleportLocation = null;
 
     for (Portal portal : portals) {
-      if (portal.getLocation().equals(location)) {
+      if (portal.getLocation().equals(next)) {
         portalColour = portal.getColour();
         break;
       }
     }
 
     for (Portal portal : portals) {
-      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(location))) {
+      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(next))) {
         teleportLocation = portal.getLocation();
         break;
       }
     }
-    return teleportLocation;
+    if (teleportLocation != null) {
+      setLocation(teleportLocation);
+    }
+    else {
+      setLocation(next);
+    }
   }
 }
 

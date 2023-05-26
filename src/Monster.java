@@ -71,12 +71,7 @@ public class Monster extends Actor
     setDirection(compassDir);
     if (type == MonsterType.TX5 &&
       !isVisited(next) && canMove(next)) {
-      if (teleportLocation(next) == null) {
-        setLocation(next);
-      }
-      else {
-        setLocation(teleportLocation(next));
-      }
+      setActorLocation(next);
     }
     else
     {
@@ -86,43 +81,27 @@ public class Monster extends Actor
       turn(sign * 90);  // Try to turn left/right
       next = getNextMoveLocation();
       if (canMove(next)) {
-        if (teleportLocation(next) == null) {
-          setLocation(next);
-        } else {
-          setLocation(teleportLocation(next));
-        }
+        setActorLocation(next);
       }
       else {
         setDirection(oldDirection);  // Try to move forward
         next = getNextMoveLocation();
         if (canMove(next)) {
-          if (teleportLocation(next) == null) {
-            setLocation(next);
-          } else {
-            setLocation(teleportLocation(next));
-          }
+          setActorLocation(next);
         }
         else {
           setDirection(oldDirection);
           turn(-sign * 90);  // Try to turn right/left
           next = getNextMoveLocation();
           if (canMove(next)) {
-            if (teleportLocation(next) == null) {
-              setLocation(next);
-            } else {
-              setLocation(teleportLocation(next));
-            }
+            setActorLocation(next);
           }
           else
           {
             setDirection(oldDirection);
             turn(180);  // Turn backward
             next = getNextMoveLocation();
-            if (teleportLocation(next) == null) {
-              setLocation(next);
-            } else {
-              setLocation(teleportLocation(next));
-            }
+            setActorLocation(next);
           }
         }
       }
@@ -159,25 +138,30 @@ public class Monster extends Actor
     else
       return true;
   }
-  private Location teleportLocation(Location location) {
+  private void setActorLocation(Location next) {
     ArrayList<Portal> portals = game.getPortals();
     String portalColour = "";
     Location teleportLocation = null;
 
     for (Portal portal : portals) {
-      if (portal.getLocation().equals(location)) {
+      if (portal.getLocation().equals(next)) {
         portalColour = portal.getColour();
         break;
       }
     }
 
     for (Portal portal : portals) {
-      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(location))) {
+      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(next))) {
         teleportLocation = portal.getLocation();
         break;
       }
     }
-    return teleportLocation;
+    if (teleportLocation != null) {
+      setLocation(teleportLocation);
+    }
+    else {
+      setLocation(next);
+    }
   }
 
 }
