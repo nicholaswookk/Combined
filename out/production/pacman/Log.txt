@@ -1,132 +1,105 @@
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Score: 0. Pills: 0
+[PacMan] Location: 5-8. Score: 0. Pills: 0
+[Troll] Location: 12-5
+[PacMan] Location: 5-8. Score: 0. Pills: 0
+[Troll] Location: 13-5
+[PacMan] Location: 5-8. Score: 0. Pills: 0
+[Troll] Location: 14-5
+[PacMan] Location: 5-8. Score: 0. Pills: 0
+[Troll] Location: 15-5
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 15-6
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 14-6
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 14-5
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 13-5
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 12-5
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 12-6
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 12-7
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 13-7
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 5-2
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 4-2
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 4-3
+[PacMan] Location: 4-8. Score: 0. Pills: 0
+[Troll] Location: 3-3
+[PacMan] Location: 6-8. Score: 0. Pills: 0
+[TX5] Location: 14-6
+[Troll] Location: 3-2
+[PacMan] Location: 8-8. Score: 0. Pills: 0
+[TX5] Location: 5-2
+[Troll] Location: 2-2
+[PacMan] Location: 8-8. Score: 0. Pills: 0
+[TX5] Location: 5-3
+[Troll] Location: 2-1
+[PacMan] Location: 8-8. Score: 0. Pills: 0
+[TX5] Location: 5-4
+[Troll] Location: 1-1
+[PacMan] Location: 8-8. Score: 0. Pills: 0
+[TX5] Location: 5-5
+[Troll] Location: 1-0
+[PacMan] Location: 9-8. Score: 0. Pills: 0
+[TX5] Location: 6-5
+[Troll] Location: 0-0
+[PacMan] Location: 10-6. Score: 0. Pills: 0
+[TX5] Location: 7-5
+[Troll] Location: 0-1
+[PacMan] Location: 10-4. Score: 0. Pills: 0
+[TX5] Location: 8-5
+[Troll] Location: 1-1
+[PacMan] Location: 11-3. Score: 0. Pills: 0
+[TX5] Location: 9-5
+[Troll] Location: 1-0
+[PacMan] Location: 13-3. Score: 0. Pills: 0
+[TX5] Location: 10-5
+[Troll] Location: 2-0
+[PacMan] Location: 14-2. Score: 0. Pills: 0
+[TX5] Location: 10-4
+[Troll] Location: 2-1
+[PacMan] Location: 12-1. Score: 0. Pills: 0
+[TX5] Location: 10-3
+[Troll] Location: 1-1
+[PacMan] Location: 10-1. Score: 0. Pills: 0
+[TX5] Location: 10-2
+[Troll] Location: 1-0
+[PacMan] Location: 8-1. Score: 0. Pills: 0
+[TX5] Location: 9-2
+[Troll] Location: 2-0
+[PacMan] Location: 6-1. Score: 0. Pills: 0
+[TX5] Location: 8-2
+[Troll] Location: 2-1
+[PacMan] Location: 4-1. Score: 0. Pills: 0
+[TX5] Location: 7-2
+[Troll] Location: 1-1
+[PacMan] Location: 4-3. Score: 0. Pills: 0
+[TX5] Location: 6-2
+[Troll] Location: 1-0
+[PacMan] Location: 4-5. Score: 0. Pills: 0
+[TX5] Location: 6-3
+[Troll] Location: 2-0
+[PacMan] Location: 4-5. Score: 0. Pills: 0
+[TX5] Location: 6-4
+[Troll] Location: 3-0
+[PacMan] Location: 3-7. Score: 0. Pills: 0
+[TX5] Location: 6-5
+[Troll] Location: 4-0
+[PacMan] Location: 0-6. Score: 0. Pills: 0
+[TX5] Location: 5-5
+[Troll] Location: 4-1
+[PacMan] Location: 0-4. Score: 0. Pills: 0
+[TX5] Location: 4-5
+[Troll] Location: 3-1
+[PacMan] Location: 0-2. Score: 0. Pills: 0
+[TX5] Location: 3-5
+[Troll] Location: 3-2
+[PacMan] Location: 2-2. Score: 0. Pills: 0
+[TX5] Location: 3-4
+[Troll] Location: 2-2
+GAME OVER

@@ -74,10 +74,14 @@ public class PacActor extends Actor implements GGKeyRepeatListener
         setDirection(Location.SOUTH);
         break;
     }
-    if (next != null && canMove(next))
+
+    if (teleportLocation(next) == null && next != null && canMove(next))
     {
       setLocation(next);
       eatPill(next);
+    }
+    if (teleportLocation(next) != null) {
+      setLocation(teleportLocation(next));
     }
   }
 
@@ -229,26 +233,25 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     gameGrid.setTitle(title);
   }
 
-  private void teleport(Location location) {
+  private Location teleportLocation(Location location) {
     ArrayList<Portal> portals = game.getPortals();
     String portalColour = "";
     Location teleportLocation = null;
 
     for (Portal portal : portals) {
-      if (portal.getLocation() == location) {
+      if (portal.getLocation().equals(location)) {
         portalColour = portal.getColour();
-        portals.remove(portal);
         break;
       }
     }
-    for (Portal portal : portals) {
-      if (portal.getColour() == portalColour) {
-        teleportLocation = portal.getLocation();
-        delay(10);
-        setLocation(teleportLocation);
-      }
 
+    for (Portal portal : portals) {
+      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(location))) {
+        teleportLocation = portal.getLocation();
+        break;
+      }
     }
+    return teleportLocation;
   }
 }
 

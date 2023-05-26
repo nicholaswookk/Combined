@@ -210,27 +210,6 @@ public class Game extends GameGrid
       }
     }
   }
-/*
-function reads game map to initialise portals and add them to an Arraylist containing portals
-// */
-//  private void setupPortalLocations() {
-//    for (int y = 0; y < nbVertCells; y++)
-//    {
-//      for (int x = 0; x < nbHorzCells; x++) {
-//
-//        Location location = new Location(x, y);
-//        int a = grid.getCell(location);
-//        if (a == 5) { // Pacman
-//          addActor(pacActor, location);
-//        } else if (a == 6) { // Troll
-//          addActor(troll, location, Location.NORTH);
-//        }
-//        else if (a == 7) { // TX5
-//          addActor(tx5, location, Location.NORTH);
-//        }
-//      }
-//    }
-//  }
 
   private void drawGrid(GGBackground bg)
   {
@@ -253,7 +232,6 @@ function reads game map to initialise portals and add them to an Arraylist conta
           putIce(bg, location);
         } else if (a > 7) {
           putPortal(bg, location, a);
-
         }
       }
     }

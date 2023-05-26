@@ -46,7 +46,7 @@ public class Driver {
             //if argument is a folder, play 1map.xml all maps in the folder in ascending order
 //        else {
         Controller mapEditor = new Controller(true);
-        mapEditor.loadFile(TEST1);
+        mapEditor.loadFile(TESTTELEPORT);
 
         String propertiesPath = DEFAULT_PROPERTIES_PATH;
         if (args.length > 0) {
@@ -57,9 +57,6 @@ public class Driver {
         new Game(gameCallback, properties, mapEditor.getModel().getMapAsString());
 
 //        }
-
-
-
     }
 
     public void loadFiles(){

@@ -70,9 +70,13 @@ public class Monster extends Actor
     Location next = getLocation().getNeighbourLocation(compassDir);
     setDirection(compassDir);
     if (type == MonsterType.TX5 &&
-      !isVisited(next) && canMove(next))
-    {
-      setLocation(next);
+      !isVisited(next) && canMove(next)) {
+      if (teleportLocation(next) == null) {
+        setLocation(next);
+      }
+      else {
+        setLocation(teleportLocation(next));
+      }
     }
     else
     {
@@ -81,34 +85,44 @@ public class Monster extends Actor
       setDirection(oldDirection);
       turn(sign * 90);  // Try to turn left/right
       next = getNextMoveLocation();
-      if (canMove(next))
-      {
-        setLocation(next);
-      }
-      else
-      {
-        setDirection(oldDirection);
-        next = getNextMoveLocation();
-        if (canMove(next)) // Try to move forward
-        {
+      if (canMove(next)) {
+        if (teleportLocation(next) == null) {
           setLocation(next);
+        } else {
+          setLocation(teleportLocation(next));
         }
-        else
-        {
+      }
+      else {
+        setDirection(oldDirection);  // Try to move forward
+        next = getNextMoveLocation();
+        if (canMove(next)) {
+          if (teleportLocation(next) == null) {
+            setLocation(next);
+          } else {
+            setLocation(teleportLocation(next));
+          }
+        }
+        else {
           setDirection(oldDirection);
           turn(-sign * 90);  // Try to turn right/left
           next = getNextMoveLocation();
-          if (canMove(next))
-          {
-            setLocation(next);
+          if (canMove(next)) {
+            if (teleportLocation(next) == null) {
+              setLocation(next);
+            } else {
+              setLocation(teleportLocation(next));
+            }
           }
           else
           {
-
             setDirection(oldDirection);
             turn(180);  // Turn backward
             next = getNextMoveLocation();
-            setLocation(next);
+            if (teleportLocation(next) == null) {
+              setLocation(next);
+            } else {
+              setLocation(teleportLocation(next));
+            }
           }
         }
       }
@@ -145,4 +159,25 @@ public class Monster extends Actor
     else
       return true;
   }
+  private Location teleportLocation(Location location) {
+    ArrayList<Portal> portals = game.getPortals();
+    String portalColour = "";
+    Location teleportLocation = null;
+
+    for (Portal portal : portals) {
+      if (portal.getLocation().equals(location)) {
+        portalColour = portal.getColour();
+        break;
+      }
+    }
+
+    for (Portal portal : portals) {
+      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(location))) {
+        teleportLocation = portal.getLocation();
+        break;
+      }
+    }
+    return teleportLocation;
+  }
+
 }
