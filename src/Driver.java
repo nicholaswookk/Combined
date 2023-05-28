@@ -46,7 +46,7 @@ public class Driver {
 //        }
 //        final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
 //        GameCallback gameCallback = new GameCallback();
-//        new Game(gameCallback, properties, mapEditor.getModel().getMapAsString());
+//        new Game(gameCallback, properties, mapEditor.getModel().getMapAsString(), 0);
 
 //        }
         //if folder loaded in, instantiate an arraylist of all the xml map files and instantiate game maps accordingly
@@ -73,8 +73,10 @@ public class Driver {
 
         Controller mapEditor = new Controller(true);
 
+        int fileListIndex = 0;
         while (fileArrayList.size() != 0) {
-            mapEditor.loadFile(fileList[0].getPath());
+            mapEditor.loadFile(fileList[fileListIndex].getPath());
+            fileListIndex++;
             gameFolderMapStrings.add(mapEditor.getModel().getMapAsString());
             fileArrayList.remove(0);
         }
@@ -83,7 +85,7 @@ public class Driver {
         final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
         GameCallback gameCallback = new GameCallback();
 
-        new Game(gameCallback, properties, gameFolderMapStrings);
+        new Game(gameCallback, properties, gameFolderMapStrings, 0);
 
 
     }

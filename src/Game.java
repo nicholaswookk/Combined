@@ -18,13 +18,12 @@ public class Game extends GameGrid
   private final static int nbVertCells = 11;
   private ArrayList<String> loadedMazeStrings;
   private boolean gameContinues = true;
-
   protected PacManGameGrid grid;
   protected PacActor pacActor = new PacActor(this);
   private Monster troll = new Monster(this, MonsterType.Troll);
   private Monster tx5 = new Monster(this, MonsterType.TX5);
-
-
+  private int level;
+  private boolean gameOver = false;
   private ArrayList<Location> pillAndItemLocations = new ArrayList<Location>();
   private ArrayList<Actor> iceCubes = new ArrayList<Actor>();
   private ArrayList<Actor> goldPieces = new ArrayList<Actor>();
@@ -37,22 +36,23 @@ public class Game extends GameGrid
 
 
 
-  public Game(GameCallback gameCallback, Properties properties, ArrayList<String> loadedMazeStrings)
+  public Game(GameCallback gameCallback, Properties properties, ArrayList<String> loadedMazeStrings, int level)
   {
     //Setup game
     super(nbHorzCells, nbVertCells, 20, false);
     this.loadedMazeStrings = loadedMazeStrings;
     this.gameCallback = gameCallback;
     this.properties = properties;
+    this.level = level;
     setSimulationPeriod(100);
     setTitle("[PacMan in the Multiverse]");
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
     String title = "";
 
     //check if there are any more maps that have been loaded into game
-    while (loadedMazeStrings.size() != 0) {
+    while (loadedMazeStrings.size() >= level && !gameOver) {
       System.out.println(loadedMazeStrings);
-      String mazeString = loadedMazeStrings.get(0);
+      String mazeString = loadedMazeStrings.get(level);
       this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
       loadPillAndItemsLocations();
 
@@ -99,21 +99,31 @@ public class Game extends GameGrid
       if (hasPacmanBeenHit) {
         bg.setPaintColor(Color.red);
         title = "GAME OVER";
+        gameOver = true;
         addActor(new Actor("sprites/explosion3.gif"), loc);
         break;
       } else if (hasPacmanEatAllPills) {
-        loadedMazeStrings.remove(0);
-
-        if (loadedMazeStrings.size() == 0) {
+        if (loadedMazeStrings.size() == level + 1) {
+          System.out.println("game win");
           bg.setPaintColor(Color.yellow);
           title = "YOU WIN";
+          gameOver = true;
+          break;
+        }
+        else {
+          System.out.println("next lvl");
+          pacActor.removeSelf();
+          tx5.removeSelf();
+          troll.removeSelf();
+          setVisible(false);
+          new Game(gameCallback, properties, loadedMazeStrings, level += 1);
           break;
         }
       }
     }
-    setTitle(title);
-    gameCallback.endOfGame(title);
-    doPause();
+    this.setTitle(title);
+    this.gameCallback.endOfGame(title);
+    this.doPause();
   }
 
   public GameCallback getGameCallback() {
