@@ -171,7 +171,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
           }
         }
       }
-
     }
   }
 
@@ -184,7 +183,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       return location;
     }
     else {
-
       return (findFirstMove(parentCellList.get(index)));
     }
   }
