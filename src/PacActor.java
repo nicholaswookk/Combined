@@ -133,7 +133,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       followPropertyMoves();
       return;
     }
-    System.out.println(getLocation());
 
     // Directional arrays left, up, right, down
     int dRow[] = {-1, 0, 1, 0};
@@ -165,6 +164,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
           if (c.equals(Color.white)){
             System.out.println("pill:" + nextCell);
             Location moveCell = findFirstMove(nextCell);
+            System.out.println(moveCell);
             setLocation(moveCell);
             eatPill(moveCell);
             return;
@@ -183,11 +183,10 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       System.out.println("return loc:" + location);
       return location;
     }
-    else if (!parentCellList.get(index).equals(getLocation())){
-      findFirstMove(parentCellList.get(index));
+    else {
+
+      return (findFirstMove(parentCellList.get(index)));
     }
-    System.out.println("here?");
-    return location;
   }
 
   private void addVisitedList(Location location)
