@@ -138,11 +138,14 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     int dRow[] = {-1, 0, 1, 0};
     int dCol[] = {0, -1, 0, 1};
 
+    ArrayList<Portal> portals = game.getPortals();
     Queue<Location> q = new LinkedList<>();
     q.add(getLocation());
     addVisitedList(getLocation());
+    boolean portalFound = false;
     parentCellList.add(getLocation());
     eatPill(getLocation());
+    String portalColour = "";
 
     while(!q.isEmpty()){
       Location cell = q.peek();
@@ -154,8 +157,26 @@ public class PacActor extends Actor implements GGKeyRepeatListener
         nextCell.x = cell.getX() + dRow[i/90];
         nextCell.y = cell.getY() + dCol[i/90];
 
+        // portal implementation here
+        for (Portal portal : portals) {
+          if (portal.getLocation().equals(nextCell)) {
+            portalColour = portal.getColour();
+            break;
+          }
+        }
+        for (Portal portal : portals) {
+          if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(nextCell))) {
+            addVisitedList(nextCell);
+            parentCellList.add(cell);
+            nextCell = portal.getLocation();
+            portalFound = true;
+            break;
+          }
+        }
+
         // add valid moves to visited list
-        if (canMove(nextCell) && !isVisited(nextCell)){
+        if ((canMove(nextCell) || portalFound) && !isVisited(nextCell)){
+          System.out.println(portalFound);
           q.add(nextCell);
           addVisitedList(nextCell);
           parentCellList.add(cell);
@@ -165,8 +186,10 @@ public class PacActor extends Actor implements GGKeyRepeatListener
             System.out.println("pill:" + nextCell);
             Location moveCell = findFirstMove(nextCell);
             System.out.println(moveCell);
-            setLocation(moveCell);
+            setActorLocation(moveCell);
             eatPill(moveCell);
+            visitedList.clear();
+            parentCellList.clear();
             return;
           }
         }
