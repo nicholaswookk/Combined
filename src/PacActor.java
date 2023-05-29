@@ -5,10 +5,7 @@ package src;
 import ch.aplu.jgamegrid.*;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PacActor extends Actor implements GGKeyRepeatListener
 {
@@ -18,9 +15,10 @@ public class PacActor extends Actor implements GGKeyRepeatListener
   private int score = 0;
   private Game game;
   private ArrayList<Location> visitedList = new ArrayList<Location>();
+  private ArrayList<Location> parentCellList = new ArrayList<Location>();
   private List<String> propertyMoves = new ArrayList<>();
   private int propertyMoveIndex = 0;
-  private final int listLength = 10;
+  private final int listLength = 10000;
   private int seed;
 
   private Random randomiser = new Random();
@@ -75,8 +73,11 @@ public class PacActor extends Actor implements GGKeyRepeatListener
         break;
     }
 
+    if (next != null && canMove(next))
+    {
       setActorLocation(next);
       eatPill(next);
+    }
   }
 
   public void act()
@@ -132,46 +133,61 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       followPropertyMoves();
       return;
     }
-    Location closestPill = closestPillLocation();
-    double oldDirection = getDirection();
+    System.out.println(getLocation());
 
-    Location.CompassDirection compassDir =
-            getLocation().get4CompassDirectionTo(closestPill);
-    Location next = getLocation().getNeighbourLocation(compassDir);
-    setDirection(compassDir);
-    if (!isVisited(next) && canMove(next)) {
-      setActorLocation(next);
-    } else {
-      // normal movement
-      int sign = randomiser.nextDouble() < 0.5 ? 1 : -1;
-      setDirection(oldDirection);
-      turn(sign * 90);  // Try to turn left/right
-      next = getNextMoveLocation();
-      if (canMove(next)) {
-        setActorLocation(next);
-      } else {
-        setDirection(oldDirection);
-        next = getNextMoveLocation();
-        if (canMove(next)) // Try to move forward
-        {
-          setActorLocation(next);
-        } else {
-          setDirection(oldDirection);
-          turn(-sign * 90);  // Try to turn right/left
-          next = getNextMoveLocation();
-          if (canMove(next)) {
-            setActorLocation(next);
-          } else {
-            setDirection(oldDirection);
-            turn(180);  // Turn backward
-            next = getNextMoveLocation();
-            setActorLocation(next);
+    // Directional arrays left, up, right, down
+    int dRow[] = {-1, 0, 1, 0};
+    int dCol[] = {0, -1, 0, 1};
+
+    Queue<Location> q = new LinkedList<>();
+    q.add(getLocation());
+    addVisitedList(getLocation());
+    parentCellList.add(getLocation());
+    eatPill(getLocation());
+
+    while(!q.isEmpty()){
+      Location cell = q.peek();
+      q.remove();
+
+      // find neighbor location
+      for (int i = 0; i < 360; i += 90){
+        Location nextCell = new Location();
+        nextCell.x = cell.getX() + dRow[i/90];
+        nextCell.y = cell.getY() + dCol[i/90];
+
+        // add valid moves to visited list
+        if (canMove(nextCell) && !isVisited(nextCell)){
+          q.add(nextCell);
+          addVisitedList(nextCell);
+          parentCellList.add(cell);
+          Color c = getBackground().getColor(nextCell);
+          // check to see if pill is found
+          if (c.equals(Color.white)){
+            System.out.println("pill:" + nextCell);
+            Location moveCell = findFirstMove(nextCell);
+            setLocation(moveCell);
+            eatPill(moveCell);
+            return;
           }
         }
       }
+
     }
-    eatPill(next);
-    addVisitedList(next);
+  }
+
+  private Location findFirstMove(Location location){
+    System.out.println("loc:" + location);
+    int index = visitedList.indexOf(location);
+    System.out.println("parent loc:" + parentCellList.get(index));
+    if (parentCellList.get(index).equals(getLocation())){
+      System.out.println("return loc:" + location);
+      return location;
+    }
+    else if (!parentCellList.get(index).equals(getLocation())){
+      findFirstMove(parentCellList.get(index));
+    }
+    System.out.println("here?");
+    return location;
   }
 
   private void addVisitedList(Location location)
@@ -248,7 +264,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     if (teleportLocation != null) {
       setLocation(teleportLocation);
     }
-    else {
+    else if (canMove(next)) {
       setLocation(next);
     }
   }

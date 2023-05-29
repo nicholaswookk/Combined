@@ -78,14 +78,19 @@ public class Game extends GameGrid
       show();
       // Loop to look for collision in the application thread
       // This makes it improbable that we miss a hit
-      boolean hasPacmanBeenHit;
+      boolean hasPacmanBeenHit = false;
       boolean hasPacmanEatAllPills;
       setupPillAndItemsLocations();
       int maxPillsAndItems = countPillsAndItems();
 
+
       do {
-        hasPacmanBeenHit = troll.getLocation().equals(pacActor.getLocation()) ||
-                tx5.getLocation().equals(pacActor.getLocation());
+        if (troll.gameGrid != null) {
+          hasPacmanBeenHit = troll.getLocation().equals(pacActor.getLocation());
+        }
+        if (tx5.gameGrid != null && !hasPacmanBeenHit) {
+          hasPacmanBeenHit = tx5.getLocation().equals(pacActor.getLocation());
+        }
         hasPacmanEatAllPills = pacActor.getNbPills() >= maxPillsAndItems;
         delay(10);
       } while (!hasPacmanBeenHit && !hasPacmanEatAllPills);
