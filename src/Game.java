@@ -51,7 +51,6 @@ public class Game extends GameGrid
 
     //check if there are any more maps that have been loaded into game
     while (loadedMazeStrings.size() >= level && !gameOver) {
-      System.out.println(loadedMazeStrings);
       String mazeString = loadedMazeStrings.get(level);
       this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
       loadPillAndItemsLocations();
@@ -109,14 +108,12 @@ public class Game extends GameGrid
         break;
       } else if (hasPacmanEatAllPills) {
         if (loadedMazeStrings.size() == level + 1) {
-          System.out.println("game win");
           bg.setPaintColor(Color.yellow);
           title = "YOU WIN";
           gameOver = true;
           break;
         }
         else {
-          System.out.println("next lvl");
           pacActor.removeSelf();
           tx5.removeSelf();
           troll.removeSelf();

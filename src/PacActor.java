@@ -129,10 +129,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
   }
 
   private void moveInAutoMode() {
-    if (propertyMoves.size() > propertyMoveIndex) {
-      followPropertyMoves();
-      return;
-    }
 
     // Directional arrays left, up, right, down
     int dRow[] = {-1, 0, 1, 0};
@@ -142,10 +138,7 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     Queue<Location> q = new LinkedList<>();
     q.add(getLocation());
     addVisitedList(getLocation());
-    boolean portalFound = false;
     parentCellList.add(getLocation());
-    eatPill(getLocation());
-    String portalColour = "";
 
     while(!q.isEmpty()){
       Location cell = q.peek();
@@ -153,6 +146,9 @@ public class PacActor extends Actor implements GGKeyRepeatListener
 
       // find neighbor location
       for (int i = 0; i < 360; i += 90){
+        String portalColour = "";
+        boolean portalFound = false;
+
         Location nextCell = new Location();
         nextCell.x = cell.getX() + dRow[i/90];
         nextCell.y = cell.getY() + dCol[i/90];
@@ -176,16 +172,23 @@ public class PacActor extends Actor implements GGKeyRepeatListener
 
         // add valid moves to visited list
         if ((canMove(nextCell) || portalFound) && !isVisited(nextCell)){
-          System.out.println(portalFound);
           q.add(nextCell);
           addVisitedList(nextCell);
           parentCellList.add(cell);
           Color c = getBackground().getColor(nextCell);
           // check to see if pill is found
-          if (c.equals(Color.white)){
-            System.out.println("pill:" + nextCell);
+          if (c.equals(Color.white) || c.equals(Color.yellow)){
             Location moveCell = findFirstMove(nextCell);
-            System.out.println(moveCell);
+
+            for (Portal portal : portals) {
+              if (moveCell.equals(portal.getLocation())) {
+                setLocation(moveCell);
+                visitedList.clear();
+                parentCellList.clear();
+                return;
+              }
+            }
+
             setActorLocation(moveCell);
             eatPill(moveCell);
             visitedList.clear();
@@ -198,11 +201,8 @@ public class PacActor extends Actor implements GGKeyRepeatListener
   }
 
   private Location findFirstMove(Location location){
-    System.out.println("loc:" + location);
     int index = visitedList.indexOf(location);
-    System.out.println("parent loc:" + parentCellList.get(index));
     if (parentCellList.get(index).equals(getLocation())){
-      System.out.println("return loc:" + location);
       return location;
     }
     else {
