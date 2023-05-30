@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Please do not change this class. This class is used for testing and your code needs to print the correct output to pass the 2map.xml
+ * Please do not change this class. This class is used for testing and your code needs to print the correct output to pass the 5map.xml
  */
 public class GameCallback {
     private String logFilePath = "Log.txt";

@@ -25,17 +25,6 @@ public class PacManGameGrid
       }
     }
   }
-//      "xxxxxxxxxxxxxxxxxxxx" + // 0
-//      "x....x....g...x....x" + // 1
-//      "xgxx.x.xxxxxx.x.xx.x" + // 2
-//      "x.x.......i.g....x.x" + // 3
-//      "x.x.xx.xx  xx.xx.x.x" + // 4
-//      "x......x    x......x" + // 5
-//      "x.x.xx.xxxxxx.xx.x.x" + // 6
-//      "x.x......gi......x.x" + // 7
-//      "xixx.x.xxxxxx.x.xx.x" + // 8
-//      "x...gx....g...x....x" + // 9
-//      "xxxxxxxxxxxxxxxxxxxx";// 10
 
   public int getCell(Location location)
   {

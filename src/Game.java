@@ -3,16 +3,11 @@
 package src;
 
 import ch.aplu.jgamegrid.*;
-import src.matachi.mapeditor.editor.Controller;
 import src.utility.GameCallback;
 
-import javax.sound.sampled.Port;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
 
 public class Game extends GameGrid
@@ -21,7 +16,6 @@ public class Game extends GameGrid
   private final static int nbVertCells = 11;
   private File[] fileList;
   private ArrayList<String> loadedMazeStrings;
-  private boolean gameContinues = true;
   protected PacManGameGrid grid;
   protected PacActor pacActor = new PacActor(this);
   private Monster troll = new Monster(this, MonsterType.Troll);
@@ -52,7 +46,6 @@ public class Game extends GameGrid
     this.level = level;
     this.fileList = fileList;
 
-    List<File> fileArrayList = new ArrayList<>(Arrays.asList(fileList));
     setSimulationPeriod(100);
     setTitle("[PacMan in the Multiverse]");
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
@@ -80,10 +73,10 @@ public class Game extends GameGrid
       tx5.setSlowDown(3);
       pacActor.setSlowDown(3);
       tx5.stopMoving(5);
-
       if (checkForErrors(mazeString)){
         return;
       }
+      setupActorLocations();
 
       //Run the game
       doRun();
@@ -139,21 +132,34 @@ public class Game extends GameGrid
     this.setTitle(title);
     this.gameCallback.endOfGame(title);
     this.doPause();
+    setVisible(false);
   }
 
   public boolean checkForErrors(String mazeString){
     int errorCounter = 0;
-    String pacmanError = GameRuleEngineFacade.getInstance().getPacmanRuleError(mazeString, fileName);
-    if (pacmanError != null){
-      this.gameCallback.writeString(pacmanError);
-      Driver.errorFound(filePath, false);
-      errorCounter++;
-    }
-    String portalError = GameRuleEngineFacade.getInstance().getPortalRuleError(mazeString, fileName);
+    String portalError = RuleEngineFacade.getInstance().getPortalRuleError(mazeString, fileName);
     if (portalError != null){
       this.gameCallback.writeString(portalError);
-      Driver.errorFound(filePath, false);
       errorCounter++;
+    }
+    String pacmanError = RuleEngineFacade.getInstance().getPacmanRuleError(mazeString, fileName);
+    if (pacmanError != null){
+      this.gameCallback.writeString(pacmanError);
+      errorCounter++;
+    }
+    String itemCountError = RuleEngineFacade.getInstance().getItemCountRuleError(mazeString, fileName);
+    if (itemCountError != null){
+      this.gameCallback.writeString(itemCountError);
+      errorCounter++;
+    }
+    String itemAccessibilityError = RuleEngineFacade.getInstance().getGoldPillAccessibleRuleError(mazeString, fileName, portals);
+    if (itemAccessibilityError != null) {
+      this.gameCallback.writeString(itemAccessibilityError);
+      errorCounter++;
+    }
+
+    if (errorCounter > 0){
+      Driver.errorFound(filePath, false);
     }
 
     return errorCounter > 0;
@@ -360,9 +366,6 @@ public class Game extends GameGrid
 
   public ArrayList<Portal> getPortals() {
     return portals;
-  }
-  public String getPortalColour(Portal portal) {
-    return portal.getColour();
   }
 
   public int getNumHorzCells(){

@@ -39,12 +39,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     randomiser.setSeed(seed);
   }
 
-  public void setPropertyMoves(String propertyMoveString) {
-    if (propertyMoveString != null) {
-      this.propertyMoves = Arrays.asList(propertyMoveString.split(","));
-    }
-  }
-
   public void keyRepeated(int keyCode)
   {
     if (isAuto) {
@@ -91,41 +85,6 @@ public class PacActor extends Actor implements GGKeyRepeatListener
       moveInAutoMode();
     }
     this.game.getGameCallback().pacManLocationChanged(getLocation(), score, nbPills);
-  }
-
-  private Location closestPillLocation() {
-    int currentDistance = 1000;
-    Location currentLocation = null;
-    List<Location> pillAndItemLocations = game.getPillAndItemLocations();
-    for (Location location: pillAndItemLocations) {
-      int distanceToPill = location.getDistanceTo(getLocation());
-      if (distanceToPill < currentDistance) {
-        currentLocation = location;
-        currentDistance = distanceToPill;
-      }
-    }
-
-    return currentLocation;
-  }
-
-  private void followPropertyMoves() {
-    String currentMove = propertyMoves.get(propertyMoveIndex);
-    switch(currentMove) {
-      case "R":
-        turn(90);
-        break;
-      case "L":
-        turn(-90);
-        break;
-      case "M":
-        Location next = getNextMoveLocation();
-        if (canMove(next)) {
-          setActorLocation(next);
-          eatPill(next);
-        }
-        break;
-    }
-    propertyMoveIndex++;
   }
 
   private void moveInAutoMode() {
@@ -182,13 +141,14 @@ public class PacActor extends Actor implements GGKeyRepeatListener
 
             for (Portal portal : portals) {
               if (moveCell.equals(portal.getLocation())) {
+                setDirection(findFirstDirection(getLocation(), findCorrespondingPortalLocation(moveCell)));
                 setLocation(moveCell);
                 visitedList.clear();
                 parentCellList.clear();
                 return;
               }
             }
-
+            setDirection(findFirstDirection(getLocation(), moveCell));
             setActorLocation(moveCell);
             eatPill(moveCell);
             visitedList.clear();
@@ -208,6 +168,36 @@ public class PacActor extends Actor implements GGKeyRepeatListener
     else {
       return (findFirstMove(parentCellList.get(index)));
     }
+  }
+
+  private Location findCorrespondingPortalLocation(Location location){
+    ArrayList<Portal> portals = game.getPortals();
+    String portalColour = "";
+    for (Portal portal : portals) {
+      if (portal.getLocation().equals(location)) {
+        portalColour = portal.getColour();
+        break;
+      }
+    }
+    for (Portal portal : portals) {
+      if (portal.getColour().equals(portalColour) && !(portal.getLocation().equals(location))) {
+        return portal.getLocation();
+      }
+    }
+    return null;
+  }
+
+  private int findFirstDirection(Location cell, Location nextCell){
+    if (nextCell.getX() > cell.getX()){
+      return 0;
+    }
+    else if (nextCell.getY() > cell.getY()) {
+      return 90;
+    }
+    else if (nextCell.getX() < cell.getX()) {
+      return 180;
+    }
+    else return 270;
   }
 
   private void addVisitedList(Location location)
