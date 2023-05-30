@@ -51,7 +51,7 @@ public class Controller implements ActionListener, GUIInformation {
 	private GridView grid;
 	private View view;
 
-	private int gridWith = Constants.MAP_WIDTH;
+	private int gridWidth = Constants.MAP_WIDTH;
 	private int gridHeight = Constants.MAP_HEIGHT;
 	private boolean playTest;
 
@@ -99,7 +99,7 @@ public class Controller implements ActionListener, GUIInformation {
 		} else if (e.getActionCommand().equals("load")) {
 			loadFile();
 		} else if (e.getActionCommand().equals("update")) {
-			updateGrid(gridWith, gridHeight);
+			updateGrid(gridWidth, gridHeight);
 		} else if (e.getActionCommand().equals("start_game")) {
 			//TODO: switch to pacman game
 		}
@@ -114,17 +114,17 @@ public class Controller implements ActionListener, GUIInformation {
 	DocumentListener updateSizeFields = new DocumentListener() {
 
 		public void changedUpdate(DocumentEvent e) {
-			gridWith = view.getWidth();
+			gridWidth = view.getWidth();
 			gridHeight = view.getHeight();
 		}
 
 		public void removeUpdate(DocumentEvent e) {
-			gridWith = view.getWidth();
+			gridWidth = view.getWidth();
 			gridHeight = view.getHeight();
 		}
 
 		public void insertUpdate(DocumentEvent e) {
-			gridWith = view.getWidth();
+			gridWidth = view.getWidth();
 			gridHeight = view.getHeight();
 		}
 	};

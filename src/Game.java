@@ -3,19 +3,23 @@
 package src;
 
 import ch.aplu.jgamegrid.*;
+import src.matachi.mapeditor.editor.Controller;
 import src.utility.GameCallback;
 
 import javax.sound.sampled.Port;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 
 public class Game extends GameGrid
 {
   private final static int nbHorzCells = 20;
   private final static int nbVertCells = 11;
+  private File[] fileList;
   private ArrayList<String> loadedMazeStrings;
   private boolean gameContinues = true;
   protected PacManGameGrid grid;
@@ -36,7 +40,7 @@ public class Game extends GameGrid
 
 
 
-  public Game(GameCallback gameCallback, Properties properties, ArrayList<String> loadedMazeStrings, int level)
+  public Game(GameCallback gameCallback, Properties properties, ArrayList<String> loadedMazeStrings, int level, File[] fileList)
   {
     //Setup game
     super(nbHorzCells, nbVertCells, 20, false);
@@ -44,6 +48,9 @@ public class Game extends GameGrid
     this.gameCallback = gameCallback;
     this.properties = properties;
     this.level = level;
+    this.fileList = fileList;
+
+    List<File> fileArrayList = new ArrayList<>(Arrays.asList(fileList));
     setSimulationPeriod(100);
     setTitle("[PacMan in the Multiverse]");
     pacActor.setAuto(Boolean.parseBoolean(properties.getProperty("PacMan.isAuto")));
@@ -69,8 +76,10 @@ public class Game extends GameGrid
       tx5.setSlowDown(3);
       pacActor.setSlowDown(3);
       tx5.stopMoving(5);
-      setupActorLocations();
 
+      if (checkForErrors(mazeString)){
+        return;
+      }
 
       //Run the game
       doRun();
@@ -118,7 +127,7 @@ public class Game extends GameGrid
           tx5.removeSelf();
           troll.removeSelf();
           setVisible(false);
-          new Game(gameCallback, properties, loadedMazeStrings, level += 1);
+          new Game(gameCallback, properties, loadedMazeStrings, level += 1, fileList);
           break;
         }
       }
@@ -126,6 +135,24 @@ public class Game extends GameGrid
     this.setTitle(title);
     this.gameCallback.endOfGame(title);
     this.doPause();
+  }
+
+  public boolean checkForErrors(String mazeString){
+    int errorCounter = 0;
+    String pacmanError = GameRuleEngineFacade.getInstance().getPacmanRuleError(mazeString, fileName);
+    if (pacmanError != null){
+      this.gameCallback.writeString(pacmanError);
+      Driver.errorFound(filePath, false);
+      errorCounter++;
+    }
+    String portalError = GameRuleEngineFacade.getInstance().getPortalRuleError(mazeString, fileName);
+    if (portalError != null){
+      this.gameCallback.writeString(portalError);
+      Driver.errorFound(filePath, false);
+      errorCounter++;
+    }
+
+    return errorCounter > 0;
   }
 
   public GameCallback getGameCallback() {

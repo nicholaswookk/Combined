@@ -85,9 +85,14 @@ public class Driver {
         final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
         GameCallback gameCallback = new GameCallback();
 
-        new Game(gameCallback, properties, gameFolderMapStrings, 0);
+        new Game(gameCallback, properties, gameFolderMapStrings, 0, fileList);
 
 
+    }
+
+    public static void errorFound(String filePath, boolean playtest){
+        Controller mapEditor = new Controller(playtest);
+        mapEditor.loadFile(filePath);
     }
 
 }
