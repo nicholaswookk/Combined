@@ -37,6 +37,8 @@ public class Game extends GameGrid
   private int seed = 30006;
   private ArrayList<Location> pillLocations = new ArrayList<>();
   private ArrayList<Location> goldLocations = new ArrayList<>();
+  private String filePath;
+  private String fileName;
 
 
 
@@ -59,6 +61,8 @@ public class Game extends GameGrid
     //check if there are any more maps that have been loaded into game
     while (loadedMazeStrings.size() >= level && !gameOver) {
       String mazeString = loadedMazeStrings.get(level);
+      filePath = fileList[level].getPath();
+      fileName = fileList[level].getName();
       this.grid = new PacManGameGrid(nbHorzCells, nbVertCells, mazeString);
       loadPillAndItemsLocations();
 

@@ -70,12 +70,15 @@ public class Driver {
         //convert fileList array to arraylist
         List<File> fileArrayList = new ArrayList<>(Arrays.asList(fileList));
         ArrayList<String> gameFolderMapStrings = new ArrayList<String>();
+        ArrayList<String> mapFilePaths = new ArrayList<String>();
 
         Controller mapEditor = new Controller(true);
 
         int fileListIndex = 0;
         while (fileArrayList.size() != 0) {
-            mapEditor.loadFile(fileList[fileListIndex].getPath());
+            String currentFilePath = fileList[fileListIndex].getPath();
+            mapEditor.loadFile(currentFilePath);
+            mapFilePaths.add(currentFilePath);
             fileListIndex++;
             gameFolderMapStrings.add(mapEditor.getModel().getMapAsString());
             fileArrayList.remove(0);
