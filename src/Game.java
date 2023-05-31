@@ -74,6 +74,7 @@ public class Game extends GameGrid
       pacActor.setSlowDown(3);
       tx5.stopMoving(5);
       if (checkForErrors(mazeString)){
+        System.out.println("1 game called");
         return;
       }
       setupActorLocations();
@@ -109,6 +110,9 @@ public class Game extends GameGrid
       if (hasPacmanBeenHit) {
         bg.setPaintColor(Color.red);
         title = "GAME OVER";
+        if (loadedMazeStrings.size() != 1) {
+          Driver.openEmptyMapEditor(false);
+        }
         gameOver = true;
         addActor(new Actor("sprites/explosion3.gif"), loc);
         break;
@@ -116,6 +120,9 @@ public class Game extends GameGrid
         if (loadedMazeStrings.size() == level + 1) {
           bg.setPaintColor(Color.yellow);
           title = "YOU WIN";
+          if (loadedMazeStrings.size() != 1) {
+            Driver.openEmptyMapEditor(false);
+          }
           gameOver = true;
           break;
         }

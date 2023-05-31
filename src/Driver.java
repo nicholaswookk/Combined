@@ -81,11 +81,13 @@ public class Driver {
             String propertiesPath = DEFAULT_PROPERTIES_PATH;
             final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
             new Game(gameCallback, properties, gameFolderMapStrings, 0, fileList);
-            mapEditor = new Controller(false);
+
 
             //if testing single game map, return to edit mode on that map once pacMan is destroyed or level completed
             if (gameFolderMapStrings.size() == 1){
+                mapEditor = new Controller(false);
                 mapEditor.loadFile(fileList[0].getPath());
+                System.out.println("driver called");
             }
         }
     }
@@ -110,6 +112,9 @@ public class Driver {
         return errorCount == 0;
     }
 
+    public static void openEmptyMapEditor(boolean playtest){
+        new Controller(false);
+    }
 
 }
 
