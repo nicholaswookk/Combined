@@ -25,7 +25,7 @@ public class PacmanRule extends MapRule {
     public String errorString() {
         if (pacmanCount == 0) {
             //get file name print out ("Level" + file name + " - no start for Pacman")
-            return ("Level" + getFileName() + " - no start for Pacman");
+            return ("[Level " + getFileName() + " - no start for Pacman]");
         } else {
 
             StringBuilder pacmanLocations = new StringBuilder();

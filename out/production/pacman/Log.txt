@@ -1,14 +1,2 @@
-[PacMan] Location: 5-5. Score: 0. Pills: 0
-[PacMan] Location: 6-5. Score: 0. Pills: 0
-[PacMan] Location: 7-5. Score: 0. Pills: 0
-[PacMan] Location: 8-5. Score: 0. Pills: 0
-[PacMan] Location: 9-5. Score: 0. Pills: 0
-[PacMan] Location: 10-5. Score: 0. Pills: 0
-[PacMan] Location: 11-5. Score: 0. Pills: 0
-[PacMan] Location: 5-5. Eat Pill/Item: pills
-[PacMan] Location: 12-5. Score: 1. Pills: 1
-[PacMan] Location: 11-5. Score: 1. Pills: 1
-[PacMan] Location: 11-4. Score: 1. Pills: 1
-[PacMan] Location: 3-3. Eat Pill/Item: pills
-[PacMan] Location: 11-3. Score: 2. Pills: 2
-YOU WIN
+[Level 1map_level1.xml - no start for Pacman]
+[Level 1map_level1.xml - less than 2 Gold and Pill]

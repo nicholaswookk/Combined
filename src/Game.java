@@ -73,8 +73,7 @@ public class Game extends GameGrid
       tx5.setSlowDown(3);
       pacActor.setSlowDown(3);
       tx5.stopMoving(5);
-      if (checkForErrors(mazeString)){
-        System.out.println("1 game called");
+      if (checkForErrors(mazeString, loadedMazeStrings)){
         return;
       }
       setupActorLocations();
@@ -142,7 +141,7 @@ public class Game extends GameGrid
     setVisible(false);
   }
 
-  public boolean checkForErrors(String mazeString){
+  public boolean checkForErrors(String mazeString, ArrayList<String> loadedMazeStrings){
     int errorCounter = 0;
     String portalError = RuleEngineFacade.getInstance().getPortalRuleError(mazeString, fileName);
     if (portalError != null){
@@ -159,13 +158,17 @@ public class Game extends GameGrid
       this.gameCallback.writeString(itemCountError);
       errorCounter++;
     }
-    String itemAccessibilityError = RuleEngineFacade.getInstance().getGoldPillAccessibleRuleError(mazeString, fileName, portals);
-    if (itemAccessibilityError != null) {
-      this.gameCallback.writeString(itemAccessibilityError);
-      errorCounter++;
+
+    //if pacman rule does not pass, do not run accessibility rule because we no longer know where pacMan would be placed and if item is accessible
+    if (pacmanError == null) {
+      String itemAccessibilityError = RuleEngineFacade.getInstance().getGoldPillAccessibleRuleError(mazeString, fileName, portals);
+      if (itemAccessibilityError != null) {
+        this.gameCallback.writeString(itemAccessibilityError);
+        errorCounter++;
+      }
     }
 
-    if (errorCounter > 0){
+    if (errorCounter > 0 && loadedMazeStrings.size() > 1){
       Driver.errorFound(filePath, false);
     }
 

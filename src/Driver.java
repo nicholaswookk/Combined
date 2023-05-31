@@ -78,8 +78,7 @@ public class Driver {
                 fileArrayList.remove(0);
             }
 
-            String propertiesPath = DEFAULT_PROPERTIES_PATH;
-            final Properties properties = PropertiesLoader.loadPropertiesFile(propertiesPath);
+            final Properties properties = PropertiesLoader.loadPropertiesFile(DEFAULT_PROPERTIES_PATH);
             new Game(gameCallback, properties, gameFolderMapStrings, 0, fileList);
 
 
@@ -87,7 +86,6 @@ public class Driver {
             if (gameFolderMapStrings.size() == 1){
                 mapEditor = new Controller(false);
                 mapEditor.loadFile(fileList[0].getPath());
-                System.out.println("driver called");
             }
         }
     }
