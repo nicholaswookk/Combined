@@ -10,10 +10,14 @@ public class RuleEngineFacade {
     private DuplicateLevelRule duplicateLevelRule;
     private MapNameRule mapNameRule;
     private GoldPillAccessibleRule goldPillAccessibleRule;
-    private static final RuleEngineFacade instance = new RuleEngineFacade();
-    private RuleEngineFacade(){
-    }
-    public static RuleEngineFacade getInstance(){
+    private static RuleEngineFacade instance;
+    private RuleEngineFacade(){}
+
+    //lazy initialisation of singleton class
+    public static synchronized RuleEngineFacade getInstance() {
+        if (instance == null) {
+            instance = new RuleEngineFacade();
+        }
         return instance;
     }
 

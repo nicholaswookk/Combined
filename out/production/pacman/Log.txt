@@ -11,5 +11,4 @@
 [PacMan] Location: 11-4. Score: 1. Pills: 1
 [PacMan] Location: 3-3. Eat Pill/Item: pills
 [PacMan] Location: 11-3. Score: 2. Pills: 2
-[Level 3AccessibilityTest - Copy (2) - Copy.xml - portal White count is not 2: (14,6); (16,6); (5,9)]
-
+YOU WIN
